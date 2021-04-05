@@ -1,0 +1,294 @@
+.button.svelte-a54fb8.svelte-a54fb8{
+  padding:10px;
+  border-radius:5px;
+  border:none;
+  cursor:pointer;
+  font-size:medium;
+  font-weight:bold;
+  font-family:Nunito
+}
+
+.button.svelte-a54fb8>i.svelte-a54fb8{
+  width:1.75rem;
+  font-size:0.8rem
+}
+
+.active-sidebar-button.svelte-a54fb8.svelte-a54fb8{
+  color:white !important
+}
+.player.svelte-1q31hm6.svelte-1q31hm6{
+  position:absolute !important;
+  bottom:0;
+  width:100%;
+  background:white;
+  height:66px;
+  border-top:2px solid #eee;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+
+.controls.svelte-1q31hm6.svelte-1q31hm6{
+  display:flex;
+  padding:0 100px
+}
+
+.play-button.svelte-1q31hm6.svelte-1q31hm6{
+  background:#fff;
+  border-radius:50%;
+  border:none;
+  width:40px;
+  height:40px;
+  color:black
+}
+
+.next-button.svelte-1q31hm6.svelte-1q31hm6{
+  border:none;
+  background:white;
+  font-size:1.5rem;
+  margin-left:1rem
+}
+
+.prev-button.svelte-1q31hm6.svelte-1q31hm6{
+  border:none;
+  background:white;
+  font-size:1.5rem;
+  margin-right:1rem
+}
+
+.player-progress.svelte-1q31hm6.svelte-1q31hm6{
+  width:50vw;
+  margin-left:50px
+}
+
+.controls.svelte-1q31hm6>img.svelte-1q31hm6{
+  position:absolute;
+  bottom:7px;
+  left:7px;
+  border-radius:5px
+}
+.button.svelte-a54fb8.svelte-a54fb8{
+  padding:10px;
+  border-radius:5px;
+  border:none;
+  cursor:pointer;
+  font-size:medium;
+  font-weight:bold;
+  font-family:Nunito
+}
+
+.button.svelte-a54fb8>i.svelte-a54fb8{
+  width:1.75rem;
+  font-size:0.8rem
+}
+
+.active-sidebar-button.svelte-a54fb8.svelte-a54fb8{
+  color:white !important
+}
+.sidebar.svelte-107uq3f{
+  background:#f4f2f0;
+  height:90vh;
+  padding:1rem;
+  min-width:5%;
+  max-width:20%;
+  border-right:2px solid #eee !important
+}
+
+.sidebar-list.svelte-107uq3f{
+  list-style:none
+}
+
+.sidebar-divider.svelte-107uq3f{
+  font-family:Nunito;
+  margin-top:1rem;
+  padding:10px;
+  font-weight:normal;
+  color:#bbb
+}
+.track.svelte-nwllqr{
+  font-family:Nunito;
+  width:100%;
+  border-bottom:1px solid #eee;
+  padding:0.5rem 15px;
+  align-items:center;
+  cursor:pointer;
+  border-radius:5px
+}
+
+.track.svelte-nwllqr:hover{
+  background:#eee
+}
+
+.track-title.svelte-nwllqr{
+  font-weight:bold
+}
+
+.track-artist.svelte-nwllqr{
+  font-weight:lighter
+}
+.tracks-view.svelte-rwjvez{
+  overflow-y:scroll
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  /* overflow: hidden; */
+}
+
+/*-------------------------*/
+
+@media only screen and (max-width: 1000px) {
+  .sidebar-list > .button > .button-label {
+    display: none;
+  }
+
+  .sidebar {
+    width: 70px;
+    margin: 0;
+    padding: 0 !important;
+    border-right: 1px solid red !important;
+  }
+
+  .sidebar-list {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .sidebar-divider {
+    display: none;
+  }
+
+  .button {
+    border-radius: 0 10px 10px 0 !important;
+    text-align: center !important;
+  }
+
+  .tracks-view {
+    width: calc(100vw - 70px) !important;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .tracks-view {
+    /* width: 80vw !important: */
+  }
+}
+
+/*-------------------------*/
+
+input[type="range"] {
+  width: 100%;
+  margin: 9px 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #08d58f;
+  border: 0;
+  border-radius: 5px;
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  margin-top: -9px;
+  width: 8px;
+  height: 8px;
+  background: #439643;
+  border: 2.5px solid #83e584;
+  border-radius: 12px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: #276c30;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: #08d58f;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 11.6px 0;
+  color: transparent;
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-fill-lower {
+  background: #194620;
+  border: 0;
+  border-radius: 10px;
+}
+
+input[type="range"]::-ms-fill-upper {
+  background: #205928;
+  border: 0;
+  border-radius: 10px;
+}
+
+input[type="range"]::-ms-thumb {
+  width: 9px;
+  height: 23px;
+  background: #439643;
+  border: 2.5px solid #83e584;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+
+input[type="range"]:focus::-ms-fill-lower {
+  background: #205928;
+}
+
+input[type="range"]:focus::-ms-fill-upper {
+  background: #276c30;
+}
+
+/*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+how to remove the virtical space around the range input in IE*/
+
+@supports (-ms-ime-align: auto) {
+  /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+
+  input[type="range"] {
+    margin: 0;
+    /*Edge starts the margin from the thumb, not the track as other browsers do*/
+  }
+}
+
+/** FF*/
+
+input[type="range"]::-moz-range-progress {
+  background-color: #08d58f;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: #ccc;
+}
+
+.svelte-j3kn1r{
+  padding:0;
+  margin:0;
+  border:none
+}
