@@ -9,6 +9,7 @@ import os
 import db
 import spotipy
 from dotenv import load_dotenv
+import socket
 
 load_dotenv()
 
@@ -54,26 +55,20 @@ def track(track_id):
 
     ext = fpath.split(".").pop()
 
+    hostname = socket.gethostname()
+    ip_addr = socket.gethostbyname(hostname)
+
     copyfile(fpath, f"/tmp/audial/{t_id}.{ext}")
     copyfile(f"{Path.home()}/.cache/audial/imgs/{t_id}.jpg", f"/tmp/audial/{t_id}.jpg")
     return {
-        "track": f"http://localhost:4242/{t_id}.{ext}",
-        "art": f"http://localhost:4242/{t_id}.jpg",
+        "track": f"http://{ip_addr}:4242/{t_id}.{ext}",
+        "art": f"http://{ip_addr}:4242/{t_id}.jpg",
     }
-
-
-# @server.post("/music/{track_id}")
-# def play_track(track_id):
-#     db.get
 
 
 @server.get("/sources")
 def sources():
     return db.get_sources()
-
-
-def main():
-    print(spotify.playlist("4ehqP8QHaIPdHMsssoB4y2"))
 
 
 if __name__ == "__main__":
