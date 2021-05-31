@@ -6,10 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import sqlite3
 import os
+
+from spotipy import util
 import db
 import spotipy
 from dotenv import load_dotenv
 import socket
+import utils
 
 load_dotenv()
 
@@ -49,6 +52,8 @@ def track(track_id):
     i = db.get_track(t_id=track_id)
     print(i)
     t_id, title, artist, album, album_artist, track_num, fpath = i
+
+    temp_dir = utils.temp_dir()
 
     rmtree("/tmp/audial")
     os.mkdir("/tmp/audial")

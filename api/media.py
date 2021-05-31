@@ -4,6 +4,7 @@ import os
 import uuid
 from pathlib import Path
 from eyed3.mp3 import Mp3AudioFile
+import utils
 
 
 def add_source(sources=[]):
@@ -36,6 +37,8 @@ def remove_source(source):
 
 
 def list_sources():
+    print(f"{len(db.get_sources())} source(s) found: ")
+
     for source in db.get_sources():
         print(source)
 
@@ -60,8 +63,7 @@ def scan_sources():
                     image = mp3.tag.images[0]
 
                     track_id = str(uuid.uuid4())
-
-                    cache_dir = str(Path.home()) + "/.cache"
+                    cache_dir = utils.cache_dir()
 
                     if "audial" not in os.listdir(cache_dir):
                         os.mkdir(f"{cache_dir}/audial")
