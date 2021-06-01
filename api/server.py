@@ -24,6 +24,8 @@ spotify_credentials = spotipy.SpotifyClientCredentials(
 )
 spotify = spotipy.Spotify(client_credentials_manager=spotify_credentials)
 
+API_PORT = str(os.getenv("API_PORT"))
+
 server.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -53,21 +55,23 @@ def track(track_id):
     print(i)
     t_id, title, artist, album, album_artist, track_num, fpath = i
 
+    cache_dir = utils.cache_dir()
     temp_dir = utils.temp_dir()
 
-    rmtree("/tmp/audial")
-    os.mkdir("/tmp/audial")
+    rmtree(temp_dir)
+    os.mkdir(temp_dir)
 
     ext = fpath.split(".").pop()
 
     hostname = socket.gethostname()
     ip_addr = socket.gethostbyname(hostname)
 
-    copyfile(fpath, f"/tmp/audial/{t_id}.{ext}")
-    copyfile(f"{Path.home()}/.cache/audial/imgs/{t_id}.jpg", f"/tmp/audial/{t_id}.jpg")
+    copyfile(fpath, f"{temp_dir}/{t_id}.{ext}")
+    copyfile(f"{cache_dir}/audial/imgs/{t_id}.jpg", f"{cache_dir}/{t_id}.jpg")
+
     return {
-        "track": f"http://{ip_addr}:4242/{t_id}.{ext}",
-        "art": f"http://{ip_addr}:4242/{t_id}.jpg",
+        "track": f"http://{utils.ip_addr()}:{API_PORT}/{t_id}.{ext}",
+        "art": f"http://{utils.ip_addr()}:{API_PORT}/{t_id}.jpg",
     }
 
 
