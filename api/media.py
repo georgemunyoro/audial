@@ -30,7 +30,8 @@ def remove_source(source):
         return
 
     if (
-        input(f"Are you sure you want to remove source '{source}'? [y/N]").lower()
+        input(
+            f"Are you sure you want to remove source '{source}'? [y/N]").lower()
         == "y"
     ):
         with db.default_con:

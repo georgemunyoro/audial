@@ -58,7 +58,8 @@ def insert_playlists(playlists, db="audial.db"):
         for i in playlists:
             p_id = i["id"]
             p_title = i["title"]
-            c.execute(f"""INSERT INTO playlists VALUES ('{p_id}', '{p_title}')""")
+            c.execute(
+                f"""INSERT INTO playlists VALUES ('{p_id}', '{p_title}')""")
 
 
 def insert_tracks(tracks, db="audial.db"):
