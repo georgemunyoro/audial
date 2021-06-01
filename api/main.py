@@ -1,21 +1,21 @@
-import subprocess
 import argparse
-
-from dotenv.main import load_dotenv
-import media
 import os
-from shutil import rmtree
-import db
-import utils
 import pprint
+import subprocess
+from shutil import rmtree
 
+import db
+import media
+import utils
+from dotenv.main import load_dotenv
 
 load_dotenv()
 API_PORT = str(os.getenv("API_PORT"))
 
 
 def start_http_server(_dir=utils.temp_dir()):
-    Handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=_dir)
+    Handler = functools.partial(http.server.SimpleHTTPRequestHandler,
+                                directory=_dir)
 
 
 def handle_args(args):
@@ -32,20 +32,21 @@ def handle_args(args):
     if args.__contains__("list_tracks") and args.list_tracks:
         query = args.list_tracks
 
-        print("-"*os.get_terminal_size()[0])
+        print("-" * os.get_terminal_size()[0])
 
         def print_track(track: dict) -> None:
             for i in track.keys():
                 ftd_string = "{0:>15}".format(i)
                 print(f"{ftd_string}: {track[i]}")
-            print("-"*os.get_terminal_size()[0])
+            print("-" * os.get_terminal_size()[0])
 
         matches = 0
 
         for track in db.get_tracks():
             match = False
-            for i in ['title', 'artist', 'album', 'album_artist']:
-                if query.lower() in track[i].lower(): match = True
+            for i in ["title", "artist", "album", "album_artist"]:
+                if query.lower() in track[i].lower():
+                    match = True
             if match:
                 print_track(track)
                 matches += 1
@@ -58,7 +59,8 @@ def handle_args(args):
 
         try:
             rmtree(temp_dir)
-        except: pass
+        except:
+            pass
 
         os.mkdir(temp_dir)
         subprocess.Popen(
@@ -100,7 +102,10 @@ def main():
 
     media_p = subparsers.add_parser("media")
     media_p.add_argument("-l", "--list-sources", action="store_true")
-    media_p.add_argument("-a", "--add-source", metavar="<MEDIA_SOURCES>", nargs="+")
+    media_p.add_argument("-a",
+                         "--add-source",
+                         metavar="<MEDIA_SOURCES>",
+                         nargs="+")
     media_p.add_argument("-s", "--scan-sources", action="store_true")
     media_p.add_argument("-r", "--remove-source", metavar="<SOURCE_PATH>")
 
