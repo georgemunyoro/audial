@@ -7,6 +7,10 @@ from eyed3.mp3 import Mp3AudioFile
 import utils
 
 
+def create_playlist(playlist_name: str) -> None:
+    db.insert_playlists([{"id": str(uuid.uuid4()), "title": playlist_name}])
+
+
 def add_source(sources=[]):
     for source in sources:
         if source in db.get_sources():
@@ -41,6 +45,13 @@ def list_sources():
 
     for source in db.get_sources():
         print(source)
+
+
+def list_playlists():
+    print(f"{len(db.get_playlists())} playlist(s) found: ")
+
+    for playlist in db.get_playlists():
+        print(playlist)
 
 
 def scan_sources():
@@ -83,7 +94,8 @@ def scan_sources():
                     if track_num is None:
                         track_num = 1
 
-                    if len(track_num) == 2: track_num = track_num[0]
+                    if len(track_num) == 2:
+                        track_num = track_num[0]
 
                     tracks.append(
                         [

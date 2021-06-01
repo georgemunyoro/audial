@@ -29,6 +29,10 @@ def handle_args(args):
         media.remove_source(args.remove_source)
     if args.__contains__("scan_sources") and args.scan_sources:
         media.scan_sources()
+    if args.__contains__("list_playlists") and args.list_playlists:
+        media.list_playlists()
+    if args.__contains__("create_playlist") and args.create_playlist:
+        media.create_playlist(args.create_playlist)
     if args.__contains__("list_tracks") and args.list_tracks:
         query = args.list_tracks
 
@@ -102,6 +106,8 @@ def main():
 
     media_p = subparsers.add_parser("media")
     media_p.add_argument("-l", "--list-sources", action="store_true")
+    media_p.add_argument("-lp", "--list-playlists", action="store_true")
+    media_p.add_argument("-cp", "--create-playlist", action="store")
     media_p.add_argument("-a",
                          "--add-source",
                          metavar="<MEDIA_SOURCES>",
