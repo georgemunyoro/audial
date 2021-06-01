@@ -58,7 +58,8 @@ def insert_playlists(playlists, db="audial.db"):
         for i in playlists:
             p_id = i["id"]
             p_title = i["title"]
-            c.execute(f"""INSERT INTO playlists VALUES ('{p_id}', '{p_title}')""")
+            c.execute(
+                f"""INSERT INTO playlists VALUES ('{p_id}', '{p_title}')""")
 
 
 def insert_tracks(tracks, db="audial.db"):
@@ -95,17 +96,15 @@ def get_tracks(db="audial.db"):
 
         for i in x:
             t_id, title, artist, album, album_artist, track_num, fpath = i
-            tracks.append(
-                {
-                    "id": t_id,
-                    "title": title,
-                    "artist": artist,
-                    "album": album,
-                    "album_artist": album_artist,
-                    "track_num": track_num,
-                    "file": fpath,
-                }
-            )
+            tracks.append({
+                "id": t_id,
+                "title": title,
+                "artist": artist,
+                "album": album,
+                "album_artist": album_artist,
+                "track_num": track_num,
+                "file": fpath,
+            })
 
     return tracks
 

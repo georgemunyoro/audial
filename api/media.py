@@ -30,10 +30,8 @@ def remove_source(source):
         print("No such media source exists!")
         return
 
-    if (
-        input(f"Are you sure you want to remove source '{source}'? [y/N]").lower()
-        == "y"
-    ):
+    if (input(f"Are you sure you want to remove source '{source}'? [y/N]").
+            lower() == "y"):
         with db.default_con:
             c = db.default_con.cursor()
             c.execute(f"DELETE FROM sources WHERE path='{source}'")
@@ -81,7 +79,8 @@ def scan_sources():
                         os.mkdir(f"{cache_dir}/audial")
                         os.mkdir(f"{cache_dir}/audial/imgs")
 
-                    with open(f"{cache_dir}/audial/imgs/{track_id}.jpg", "wb") as f:
+                    with open(f"{cache_dir}/audial/imgs/{track_id}.jpg",
+                              "wb") as f:
                         f.write(image.image_data)
 
                     if title is None:
@@ -98,17 +97,15 @@ def scan_sources():
                     if len(track_num) == 2:
                         track_num = track_num[0]
 
-                    tracks.append(
-                        [
-                            track_id,
-                            title,
-                            artist,
-                            album,
-                            album_artist,
-                            track_num,
-                            source + i,
-                        ]
-                    )
+                    tracks.append([
+                        track_id,
+                        title,
+                        artist,
+                        album,
+                        album_artist,
+                        track_num,
+                        source + i,
+                    ])
 
                 except UnicodeEncodeError:
                     pass
