@@ -1,13 +1,12 @@
-import subprocess
 import argparse
-
-from dotenv.main import load_dotenv
-import media
 import os
+import subprocess
 from shutil import rmtree
-import db
-import utils
 
+import db
+import media
+import utils
+from dotenv.main import load_dotenv
 
 load_dotenv()
 API_PORT = str(os.getenv("API_PORT"))

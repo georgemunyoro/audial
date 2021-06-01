@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-from typing import Optional
-from shutil import copyfile, rmtree
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pathlib import Path
-import sqlite3
 import os
+import socket
+import sqlite3
+from pathlib import Path
+from shutil import copyfile, rmtree
+from typing import Optional
 
-from spotipy import util
 import db
 import spotipy
-from dotenv import load_dotenv
-import socket
 import utils
+from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from spotipy import util
 
 load_dotenv()
 
