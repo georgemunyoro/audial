@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import db
 import os
 import uuid
 from pathlib import Path
-from eyed3.mp3 import Mp3AudioFile
+
+import db
 import utils
+from eyed3.mp3 import Mp3AudioFile
 
 
 def create_playlist(playlist_name: str) -> None:
