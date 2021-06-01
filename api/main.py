@@ -65,8 +65,8 @@ def handle_args(args):
             ["uvicorn server:server --host 0.0.0.0 & > /dev/null"],
             shell=True,
             stdin=None,
-            # stdout=subprocess.DEVNULL,
-            # stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
             close_fds=True,
         )
 
