@@ -1,16 +1,25 @@
 import subprocess
 import argparse
+
+from dotenv.main import load_dotenv
 import media
 import os
 from shutil import rmtree
 import db
+import utils
 
 
-def start_http_server(_dir="/tmp/audial/"):
+load_dotenv()
+API_PORT = str(os.getenv("API_PORT"))
+
+
+def start_http_server(_dir=utils.temp_dir()):
     Handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=_dir)
 
 
 def handle_args(args):
+    global API_PORT
+
     if args.__contains__("add_source") and args.add_source:
         media.add_source(args.add_source)
     if args.__contains__("list_sources") and args.list_sources:
@@ -24,19 +33,24 @@ def handle_args(args):
             print(track)
     if args.__contains__("run") and args.run:
 
-        rmtree("/tmp/audial")
-        os.mkdir("/tmp/audial")
+        temp_dir = utils.temp_dir()
+
+        try:
+            rmtree(temp_dir)
+        except: pass
+
+        os.mkdir(temp_dir)
         subprocess.Popen(
-            ["uvicorn server:server --reload& > /dev/null"],
+            ["uvicorn server:server --host 0.0.0.0 & > /dev/null"],
             shell=True,
             stdin=None,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            # stdout=subprocess.DEVNULL,
+            # stderr=subprocess.DEVNULL,
             close_fds=True,
         )
 
         subprocess.Popen(
-            ["cd /tmp/audial && python3 -m http.server 4242"],
+            [f"cd /tmp/audial && python3 -m http.server {API_PORT}"],
             shell=True,
             stdin=None,
             stdout=subprocess.DEVNULL,
@@ -46,7 +60,7 @@ def handle_args(args):
 
     if args.__contains__("stop"):
         os.system("fuser -n tcp -k 8000")
-        os.system("fuser -n tcp -k 4242")
+        os.system(f"fuser -n tcp -k {API_PORT}")
 
 
 def main():

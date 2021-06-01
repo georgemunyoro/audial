@@ -6,10 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import sqlite3
 import os
+
+from spotipy import util
 import db
 import spotipy
 from dotenv import load_dotenv
 import socket
+import utils
 
 load_dotenv()
 
@@ -20,6 +23,8 @@ spotify_credentials = spotipy.SpotifyClientCredentials(
     client_id=os.getenv("CLIENT_ID"), client_secret=os.getenv("CLIENT_SECRET")
 )
 spotify = spotipy.Spotify(client_credentials_manager=spotify_credentials)
+
+API_PORT = str(os.getenv("API_PORT"))
 
 server.add_middleware(
     CORSMiddleware,
@@ -50,19 +55,23 @@ def track(track_id):
     print(i)
     t_id, title, artist, album, album_artist, track_num, fpath = i
 
-    rmtree("/tmp/audial")
-    os.mkdir("/tmp/audial")
+    cache_dir = utils.cache_dir()
+    temp_dir = utils.temp_dir()
+
+    rmtree(temp_dir)
+    os.mkdir(temp_dir)
 
     ext = fpath.split(".").pop()
 
     hostname = socket.gethostname()
     ip_addr = socket.gethostbyname(hostname)
 
-    copyfile(fpath, f"/tmp/audial/{t_id}.{ext}")
-    copyfile(f"{Path.home()}/.cache/audial/imgs/{t_id}.jpg", f"/tmp/audial/{t_id}.jpg")
+    copyfile(fpath, f"{temp_dir}/{t_id}.{ext}")
+    copyfile(f"{cache_dir}/audial/imgs/{t_id}.jpg", f"{cache_dir}/{t_id}.jpg")
+
     return {
-        "track": f"http://{ip_addr}:4242/{t_id}.{ext}",
-        "art": f"http://{ip_addr}:4242/{t_id}.jpg",
+        "track": f"http://{utils.ip_addr()}:{API_PORT}/{t_id}.{ext}",
+        "art": f"http://{utils.ip_addr()}:{API_PORT}/{t_id}.jpg",
     }
 
 
