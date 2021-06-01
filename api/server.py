@@ -3,7 +3,8 @@ import os
 import socket
 import sqlite3
 from pathlib import Path
-from shutil import copyfile, rmtree
+from shutil import copyfile
+from shutil import rmtree
 from typing import Optional
 
 import db
