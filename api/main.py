@@ -13,7 +13,8 @@ API_PORT = str(os.getenv("API_PORT"))
 
 
 def start_http_server(_dir=utils.temp_dir()):
-    Handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=_dir)
+    Handler = functools.partial(http.server.SimpleHTTPRequestHandler,
+                                directory=_dir)
 
 
 def handle_args(args):
@@ -79,7 +80,10 @@ def main():
 
     media_p = subparsers.add_parser("media")
     media_p.add_argument("-l", "--list-sources", action="store_true")
-    media_p.add_argument("-a", "--add-source", metavar="<MEDIA_SOURCES>", nargs="+")
+    media_p.add_argument("-a",
+                         "--add-source",
+                         metavar="<MEDIA_SOURCES>",
+                         nargs="+")
     media_p.add_argument("-s", "--scan-sources", action="store_true")
     media_p.add_argument("-r", "--remove-source", metavar="<SOURCE_PATH>")
 

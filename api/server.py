@@ -21,8 +21,7 @@ server = FastAPI()
 s_con = sqlite3.connect("audial.db")
 
 spotify_credentials = spotipy.SpotifyClientCredentials(
-    client_id=os.getenv("CLIENT_ID"), client_secret=os.getenv("CLIENT_SECRET")
-)
+    client_id=os.getenv("CLIENT_ID"), client_secret=os.getenv("CLIENT_SECRET"))
 spotify = spotipy.Spotify(client_credentials_manager=spotify_credentials)
 
 API_PORT = str(os.getenv("API_PORT"))
@@ -44,10 +43,9 @@ def root():
 @server.get("/music")
 def music(skip: int = 0, limit: int = 100, artist: str = None):
     if artist:
-        return [i for i in db.get_tracks() if i["artist"] == artist][
-            skip : skip + limit
-        ]
-    return db.get_tracks()[skip : skip + limit]
+        return [i for i in db.get_tracks()
+                if i["artist"] == artist][skip:skip + limit]
+    return db.get_tracks()[skip:skip + limit]
 
 
 @server.get("/music/{track_id}")
