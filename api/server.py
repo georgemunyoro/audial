@@ -44,9 +44,9 @@ def root():
 def music(skip: int = 0, limit: int = 100, artist: str = None):
     if artist:
         return [i for i in db.get_tracks() if i["artist"] == artist][
-            skip : skip + limit
+            skip: skip + limit
         ]
-    return db.get_tracks()[skip : skip + limit]
+    return db.get_tracks()[skip: skip + limit]
 
 
 @server.get("/music/{track_id}")

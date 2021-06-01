@@ -7,6 +7,7 @@ from dotenv.main import load_dotenv
 
 load_dotenv()
 
+
 def cache_dir() -> str:
     if sys.platform == "win32":
         return f"{Path.home()}/AppData/Roaming"

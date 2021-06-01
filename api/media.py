@@ -26,7 +26,8 @@ def remove_source(source):
         return
 
     if (
-        input(f"Are you sure you want to remove source '{source}'? [y/N]").lower()
+        input(
+            f"Are you sure you want to remove source '{source}'? [y/N]").lower()
         == "y"
     ):
         with db.default_con:
@@ -83,7 +84,8 @@ def scan_sources():
                     if track_num is None:
                         track_num = 1
 
-                    if len(track_num) == 2: track_num = track_num[0]
+                    if len(track_num) == 2:
+                        track_num = track_num[0]
 
                     tracks.append(
                         [
