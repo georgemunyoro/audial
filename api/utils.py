@@ -2,10 +2,24 @@ import os
 import socket
 import sys
 from pathlib import Path
+from typing import List
 
 from dotenv.main import load_dotenv
 
 load_dotenv()
+
+
+def pprint_track(track: dict) -> None:
+    for i in track.keys():
+        ftd_string = "{0:>15}".format(i)
+        print(f"{ftd_string}: {track[i]}")
+    print("-" * os.get_terminal_size()[0])
+
+
+def pprint_track_list(tracks: List[dict]) -> None:
+    for i in tracks:
+        pprint_track(i)
+
 
 def cache_dir() -> str:
     if sys.platform == "win32":

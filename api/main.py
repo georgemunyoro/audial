@@ -30,19 +30,21 @@ def handle_args(args):
     if args.__contains__("scan_sources") and args.scan_sources:
         media.scan_sources()
     if args.__contains__("list_playlists") and args.list_playlists:
-        media.list_playlists()
+        if args.list_playlists == "all-playlists":
+            media.list_playlists()
+        else:
+            print("-" * os.get_terminal_size()[0])
+            utils.pprint_track_list(media.get_playlist_by_name(args.list_playlists))
     if args.__contains__("create_playlist") and args.create_playlist:
         media.create_playlist(args.create_playlist)
+    if args.__contains__("add_to_playlist") and args.add_to_playlist:
+        p_name, t_id = args.add_to_playlist
+        p_id = media.get_playlist_id_from_name(p_name)
+        media.add_to_playlist(p_id, t_id)
     if args.__contains__("list_tracks") and args.list_tracks:
         query = args.list_tracks
 
         print("-" * os.get_terminal_size()[0])
-
-        def print_track(track: dict) -> None:
-            for i in track.keys():
-                ftd_string = "{0:>15}".format(i)
-                print(f"{ftd_string}: {track[i]}")
-            print("-" * os.get_terminal_size()[0])
 
         matches = 0
 
@@ -52,7 +54,7 @@ def handle_args(args):
                 if query.lower() in track[i].lower():
                     match = True
             if match:
-                print_track(track)
+                utils.pprint_track(track)
                 matches += 1
 
         print(f"Matches Found: {matches}")
@@ -106,8 +108,9 @@ def main():
 
     media_p = subparsers.add_parser("media")
     media_p.add_argument("-l", "--list-sources", action="store_true")
-    media_p.add_argument("-lp", "--list-playlists", action="store_true")
+    media_p.add_argument("-lp", "--list-playlists", action="store", const="all-playlists", nargs="?")
     media_p.add_argument("-cp", "--create-playlist", action="store")
+    media_p.add_argument("-atp", "--add-to-playlist", action="store", nargs=2)
     media_p.add_argument("-a",
                          "--add-source",
                          metavar="<MEDIA_SOURCES>",
