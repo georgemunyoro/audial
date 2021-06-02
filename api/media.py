@@ -11,6 +11,19 @@ def create_playlist(playlist_name: str) -> None:
     db.insert_playlists([{"id": str(uuid.uuid4()), "title": playlist_name}])
 
 
+def get_playlist_id_from_name(playlist_name: str) -> str:
+    return [i for i in db.get_playlists() if i["title"] == playlist_name][0]["id"]
+
+
+def get_playlist_by_name(playlist_name):
+    playlist_id = get_playlist_id_from_name(playlist_name)
+    return list(db.get_playlist_tracks(playlist_id))
+
+
+def add_to_playlist(playlist_id: str, track_id: str) -> None:
+    db.insert_playlist_track_relation(str(uuid.uuid4()), playlist_id, track_id)
+
+
 def add_source(sources=[]):
     for source in sources:
         if source in db.get_sources():

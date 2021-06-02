@@ -51,6 +51,36 @@ def create_playlist_track_table(db="audial.db"):
         )
 
 
+def insert_playlist_track_relation(_id, playlist, track, db="audial.db"):
+    with sqlite3.connect(db) as con:
+        c = con.cursor()
+        c.execute(
+            f"""INSERT INTO playlist_track VALUES ('{_id}', '{playlist}', '{track}')"""
+        )
+
+
+def get_playlist_tracks(playlist_id, db="audial.db"):
+    with sqlite3.connect(db) as con:
+        c = con.cursor()
+        c.execute(
+            f"SELECT * FROM playlist_track WHERE playlist = '{playlist_id}'"
+        )
+        x = c.fetchall()
+        for i in x:
+            t_id, title, artist, album, album_artist, track_num, fpath = get_track(i[2])
+            yield(
+                {
+                    "id": t_id,
+                    "title": title,
+                    "artist": artist,
+                    "album": album,
+                    "album_artist": album_artist,
+                    "track_num": track_num,
+                    "file": fpath,
+                }
+            )
+
+
 def insert_playlists(playlists, db="audial.db"):
     with sqlite3.connect(db) as con:
         c = con.cursor()
@@ -114,7 +144,6 @@ def get_track(t_id, db="audial.db"):
     with sqlite3.connect(db) as con:
         c = con.cursor()
         c.execute(f"SELECT * FROM tracks WHERE id = '{t_id}'")
-
         return c.fetchone()
 
 
